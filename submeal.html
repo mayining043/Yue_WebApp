@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/total.css">
+        <link rel="stylesheet" type="text/css" href="css/sm.css">
+        <title>约约约</title>
+    </head>
+
+    <body>
+        <div id="bg" style="width:320px;height:426px;background-image: url(images/001.gif);background-size: cover" >
+        </div>
+
+        <div class="smpart" id="fp">
+            <label>
+                商家<input id="rantname" type="text" maxlength="25" placeholder="请填写约饭地点">
+            </label>    
+        </div>
+        
+        <div class="smpart">
+            <label>
+                时间<input id="time" type="text" maxlength="20" placeholder="请填写约饭时间">
+            </label>    
+        </div>
+
+        <div class="smpart">
+            <label>
+                人数<input id="amount" type="text" maxlength="10" placeholder="请填写约饭人数">
+            </label>    
+        </div>
+
+        <div class="smpart">
+            <label>
+                可见<select id="isshow" style="color: rgb(153,153,153); width: 155px;" onchange="choose(this)">
+                    <option value="">请选择</option>
+
+                    <option value="汉纸">汉子可见</option>
+
+                    <option value="妹子">妹纸可见</option>
+
+                    <option value="任何人可见">任何人可见</option>
+                </select>
+            </label>    
+        </div>
+
+        <div class="smpart">
+            
+                备注<textarea id="intro" maxlength="100" placeholder="可选填" value=""></textarea>
+            
+        </div>
+
+        
+        <div class="smbtn">
+            <button id="btn" onclick="submit()">确认发布</button>
+        </div>
+
+        <p style="margin:auto;position:relative;bottom:0;display:block;font-size:12px;margin-top:10px;">Copyright©2016 TruePhone 一林 达达</p>
+        <p style="margin:auto;position:relative;bottom:0;display:block;font-size:12px;margin:0px;">All rights reserved.</p>
+
+    </body>
+    
+    <script src="jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+     $.get("online.php",
+                       
+                        function(data,status){
+                           if (status=="success"){ 
+                            if(data!=0){
+                                var r=confirm("请先登录！");
+                                if (r==true)
+                                  {
+                                  window.location.href="index.html";  
+                                  }
+                                else
+                                  {
+                                  alert("再见！");
+                                       }      
+                            }      
+                        }  
+                });
+
+                var w=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+                if(w<=414){
+                    document.getElementsByTagName('body')[0].style.width= w+'px';
+                    document.getElementById('bg').style.width=w+'px';
+                    document.getElementById('bg').style.height=w*480/360+'px';
+                }
+
+        function submit(){
+            var kind="约饭";
+            var username="见鬼了";
+            var rantname=document.getElementById('rantname').value;
+            var time=document.getElementById('time').value;
+            var amount=document.getElementById('amount').value;
+            var isshow=document.getElementById('isshow').value;
+            var intro=document.getElementById('intro').value;
+
+            if(rantname==""){
+                alert("小Y不知道你的约饭地点耶！");
+            }
+            else if(time==""){
+                alert("小Y不知道你的约饭时间耶！");
+            }
+            else if(amount==""){
+                alert("小Y不知道你的约多少个人耶！");
+            }
+            else if(isshow==""){
+                alert("小Y不知道你想约汉子还是妹子耶！");
+            }
+
+            else{
+
+                $.post("add.php",
+                        {
+                            kind: kind,
+                            username: username,
+                            rantname: rantname,
+                            time: time,
+                            amount: amount,
+                            isshow: isshow,
+                            intro: intro
+
+                        },
+                        function(data,status) {
+                            if (status=="success"){        
+                                var condition = data;
+                                switch (condition)
+                                {
+                                    case "0": alert("约饭信息已经成功发布~\(≧▽≦)/~");window.location.href="showmeal.html";break;
+                                    case "1": alert("数据连接失败QUQ");break;
+                                    case "2": alert("录入信息失败QUQ");break;
+                                    default:alert(condition);break;
+                                    // "未知错误"
+                                }
+                            }
+                            else{                
+                                alert("Request was unsuccessful: " + status);                       
+                            }
+                        }
+                    );
+                    document.getElementById("btn").style.backgroundColor="#635D53";
+                    document.getElementById("btn").disabled=true;
+                    document.getElementById("btn").innerHTML="已提交";
+            }
+        }
+
+        function choose(t){
+            if(t.value!=""){
+                t.style.color="black";
+            }
+            else{
+                t.style.color="rgb(153,153,153)";
+            }
+        }
+
+    </script>
+
+
+</html>

@@ -1,0 +1,14 @@
+body{
+    text-align: center;
+}
+
+.part{
+    font-size: 18px;
+    margin:20px 0;
+}
+
+#title{
+    font-size: 24px;
+    font-family: Microsoft Yahei;
+    font-weight: bold;
+}

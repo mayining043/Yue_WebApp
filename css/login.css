@@ -1,0 +1,54 @@
+body{
+    background: none;
+    width: 414px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.part{
+    width: 320px;
+    text-align: center;
+    margin: 0 auto;
+
+}
+
+button{
+    display: none;
+}
+
+.loginpart{
+    display: none;
+    width:414px;
+    height:200px;
+    position: relative;
+    top: 40%;
+    text-align: center;
+}
+
+label{
+    display: inline;
+}
+
+#inname{
+    height: 100px;
+    position: absolute;
+    top: 30%;
+    left: 23%;
+}
+
+#inpass{
+    height: 50px;
+    position: absolute;
+    top: 60%;
+    left: 23%;
+}
+
+input{
+    width: 170px;
+    font-size: 18px;
+    color: grey;
+}
+
+#post{
+    display: none;
+}

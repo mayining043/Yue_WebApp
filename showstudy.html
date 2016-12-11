@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+    </head>
+            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/total.css">    
+    <link rel="stylesheet" type="text/css" href="css/swm.css"> 
+    <body>
+        
+        <button id="swmbtn" onclick="getback()">返回</button>
+        <p id="title">约学习</p>
+        <div id="swmpart"></div>
+        
+
+        <script src="jquery-3.1.0.min.js"></script>
+
+        <script type="text/javascript">
+            window.onload = function(){
+                $.get("online.php",
+                       
+                function(data,status){
+                           if (status=="success"){ 
+                            if(data!=0){
+                                var r=confirm("请先登录！");
+                                if (r==true)
+                                  {
+                                  window.location.href="index.html";  
+                                  }
+                                else
+                                  {
+                                  alert("再见！");
+                                       }      
+                            }      
+                        }  
+                });
+
+                var w=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+                if(w<=414){
+                    document.getElementsByTagName('body')[0].style.width= w+'px';
+                }
+
+                $.post("showlist.php",
+                        {
+                            kind:"学习"
+                        },
+                        function(data,status){
+                            if (status=="success"){ 
+                        var t=eval("("+data+")");
+                        var o = document.body;
+                                for(var i=0;i<t.length;i++){
+                                    var groupid=t[i].groupid,
+                                        kind=t[i].kind,
+                                        username=t[i].username,
+                                        rantname=t[i].rantname,
+                                        time=t[i].time,
+                                        amount=t[i].amount,
+                                        isshow=t[i].isshow,
+                                        intro=t[i].intro,
+                                        sum=t[i].sum;
+                                    var div = document.createElement("div"); 
+                                    
+                                    div.className="swmpart";
+                                    var str="<p>发布者："+username+"</p><p>时间："+time+"</p>"+
+                                            "<p>地点："+rantname+"</p><p>已加入/总人数："+sum+"/"+amount+"</p>"+
+                                            "<p>可见："+isshow+"</p><p>备注："+intro+"</p>"+"<button onclick='add(this)' class='btn' id="+groupid+">加入</button>";
+                                    div.innerHTML = str; 
+                                    o.appendChild(div);
+                                    
+                                }
+                                var foot = document.createElement("div");       
+                                foot.className="foot";
+                                var str=' <p style="margin:auto;position:relative;bottom:0;display:block;font-size:12px;margin-top:10px;">Copyright©2016 TruePhone 一林 达达</p><p style="margin:auto;position:relative;bottom:0;display:block;font-size:12px;margin:0px;">All rights reserved.</p>';
+                                foot.innerHTML=str;
+                                o.appendChild(foot);
+   
+                            } 
+                            else{               
+                                alert("后台数据连接失败");             
+                            }
+                });
+            
+            }
+
+            function getback(){
+                window.location.href="select.html";
+            }
+
+            function add(t){
+                var id=t.id;
+                var name="鬼";
+                $.post("addother.php",
+                        {
+                            groupid:id,
+                            username:name
+                        },
+                        function(data,status){
+                            if (status=="success"){        
+                                var condition = data;
+                                switch (condition)
+                                {
+                                    case "0": alert("已成功约学习~\(≧▽≦)/~");window.location.reload();break;
+                                    case "1": alert("数据连接失败QUQ");break;
+                                    case "2": alert("录入信息失败QUQ");break;
+                                    default:alert(condition);break;
+                                    // "未知错误"
+                                }
+                            }
+                            else{                
+                                alert("Request was unsuccessful: " + status);                       
+                            }
+                        }
+                    );
+            }
+        </script>
+        
+    </body>
+
+</html>

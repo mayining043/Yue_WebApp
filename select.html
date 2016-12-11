@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/total.css">
+        <link rel="stylesheet" type="text/css" href="css/select.css">
+        <title>约约约</title>
+    </head>
+    
+    <body>
+        <div class="part">
+            <p id="title">约约约</p>
+        </div>
+
+        <div class="part">
+            <p>约饭</p>
+            <button id="newmeal" class="left">吃喝玩乐</button>
+            <button class="token" id="showmeal">查看已有</button>
+        </div>
+
+        <div class="part">
+            <p>约跑</p>
+            <button id="newrun" class="left">预防猝死</button>
+            <button class="token" id="showrun">查看已有</button>
+        </div>
+
+        <div class="part">
+            <p>约电影</p>
+            <button id="newmo" class="left">岂止于约</button>
+            <button class="token" id="showmo">查看已有</button>
+        </div>
+
+        <div class="part">
+            <p>约学习</p>
+            <button id="newstu" class="left">我爱学习</button>
+            <button class="token" id="showstu">查看已有</button>
+        </div>
+
+        <!-- <p style="margin:auto;position:relative;bottom:0;display:block;font-size:12px;margin-top:10px;">Copyright©2016 TruePhone 一林 达达</p>
+        <p style="margin:auto;position:relative;bottom:0;display:block;font-size:12px;margin:0px;">All rights reserved.</p> -->
+    </body>
+
+    <script src="jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+            var w=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+            if(w<=414){
+                document.getElementsByTagName('body')[0].style.width= w+'px';
+            }
+        $(document).ready(function(){
+            $('#newmeal').click(function(){
+                window.location.href="submeal.html";
+            });
+            $('#showmeal').click(function(){
+                window.location.href="showmeal.html";
+            });
+            $('#newrun').click(function(){
+                window.location.href="subrun.html";
+            });
+            $('#showrun').click(function(){
+                window.location.href="showrun.html";
+            });
+            $('#newmo').click(function(){
+                window.location.href="submovie.html";
+            });
+            $('#showmo').click(function(){
+                window.location.href="showmovie.html";
+            });
+            $('#newstu').click(function(){
+                window.location.href="substudy.html";
+            });
+            $('#showstu').click(function(){
+                window.location.href="showstudy.html";
+            });
+        });
+
+    </script>
+
+</html>

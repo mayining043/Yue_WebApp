@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width,user-scalable=no">
+        <link rel="stylesheet" type="text/css" href="css/total.css">
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+        <title>约约约</title>
+    </head>
+        
+    <body>
+        <div id="up" style="width:414px;height:180px;background-image: url(images/up.jpg);background-size: cover;
+            " >
+        </div>
+        
+        <div id="logo" style="width:414px;height:200px;background-image: url(images/logo.jpg);background-size: cover;position:relative;top: 40%;
+            " >
+        </div>
+        
+        <div class="loginpart" id="loginpart">
+            <div id="inname">
+                <label>用户<input type="text" name="username" id="username" value=""></label>
+            </div>
+
+            <div id="inpass">
+                <label>密码<input type="password" name="password" id="password" value=""></label>
+            </div>
+        </div>
+
+        <div class="part">
+            <button id="login" name="login" class="token">登录</button>
+            <button id="post">登录</button>
+            <button class="token" id="new">注册</button>
+        </div>
+
+        <div id="down" style="width:414px;height:180px;background-image: url(images/down.jpg);background-size: cover;position:absolute;bottom: 0;
+            " >
+        </div>
+        
+    
+            <p style="margin:auto;position:relative;bottom:0;display:block;font-size:5px;margin-top:10px;">Copyright©2016 TruePhone 一林 达达</p>
+            <p style="margin:auto;position:relative;bottom:0;display:block;font-size:5px;margin:0px;">All rights reserved.</p>
+
+        <script src="jquery-3.1.0.min.js"></script>
+        <script type="text/javascript">
+            window.onload = function(){
+                var h=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight;
+                var w=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth;
+                if(w<=414){
+                    document.getElementsByTagName('body')[0].style.width= w+'px';
+                    document.getElementById('up').style.width=w+'px';
+                    document.getElementById('up').style.height=w*180/414+'px';
+                    document.getElementById('down').style.width=w+'px';
+                    document.getElementById('down').style.height=w*180/414+'px';
+                    document.getElementById('logo').style.width=w+'px';
+                    document.getElementById('logo').style.height=w*0.48+'px';
+                    document.getElementById('loginpart').style.width=w+'px';
+                    document.getElementById('loginpart').style.height=w*0.48+'px';
+                }
+
+            }
+
+            $(document).ready(function(){
+                $(".token").fadeIn(2000);
+                $(".token").css("display","inline");
+                $("#login").click(function(){
+
+                    $("#logo").fadeOut(500,function(){
+                        $("#loginpart").fadeIn(500);
+                    });
+
+                    $(this).hide();
+                    $("#post").show();
+                    $("#post").css("display","inline");
+                    
+                });
+
+                $("#post").click(function(){
+                    var username=document.getElementById("username").value;
+                    var password=document.getElementById("password").value;
+                    if(username==""){
+                        alert("用户名不能为空哦~");
+                    }
+                    else if(password==""){
+                        alert("密码不能为空哦~");
+                    }
+                    else{
+                        $.post("login.php",
+                        {
+                            username:username,
+                            password:password
+                        },
+                        function(data,status) {
+                            if (status=="success"){        
+                                var condition = data;
+                                if(condition==0){
+                                    alert("登录成功~\(≧▽≦)/~");
+                                    window.location.href="select.html";
+                                }
+                                else if(condition==1){
+                                     alert("数据连接失败QUQ");
+                                }
+                                else if(condition==2){
+                                    alert("用户名不存在或密码错误QUQ");
+                                }
+                                else{
+                                    alert(condition);
+                                }
+                                // switch (condition)
+                                // {
+                                //     case 0: alert("登录成功~\(≧▽≦)/~");
+                                //               //window.location.href="submeal.html";
+                                //     break;
+                                //     case 1: alert("数据连接失败QUQ");break;
+                                //     case 2: alert("用户名不存在或密码错误QUQ");break;
+                                //     default: alert(condition);break;
+                                //     // "未知错误"
+                                // }
+                            }
+                            else{                
+                                alert("Request was unsuccessful: " + status);                       
+                            }
+                        }
+
+                        );
+
+
+                    }
+                    
+ 
+                });
+                $("#new").click(function(){
+                    window.location.href="register.html";
+                });
+            });
+
+
+        </script>
+
+    </body>
+
+</html>
